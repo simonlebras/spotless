@@ -15,7 +15,6 @@
  */
 package com.diffplug.gradle.spotless;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -112,10 +111,10 @@ public abstract class SpotlessTaskService implements BuildService<BuildServicePa
 
 	abstract static class ClientTask extends DefaultTask {
 		@Internal
-		abstract Property<File> getSpotlessCleanDirectory();
+		abstract DirectoryProperty getSpotlessCleanDirectory();
 
 		@Internal
-		abstract Property<File> getSpotlessLintsDirectory();
+		abstract DirectoryProperty getSpotlessLintsDirectory();
 
 		@Internal
 		abstract Property<SpotlessTaskService> getTaskService();
@@ -128,8 +127,8 @@ public abstract class SpotlessTaskService implements BuildService<BuildServicePa
 
 		void init(TaskProvider<SpotlessTaskImpl> impl) {
 			usesServiceTolerateTestFailure(this, impl.flatMap(SpotlessTaskImpl::getTaskServiceProvider));
-			getSpotlessCleanDirectory().set(impl.map(SpotlessTask::getCleanDirectory));
-			getSpotlessLintsDirectory().set(impl.map(SpotlessTask::getLintsDirectory));
+			getSpotlessCleanDirectory().set(impl.flatMap(SpotlessTask::getCleanDirectory));
+			getSpotlessLintsDirectory().set(impl.flatMap(SpotlessTask::getLintsDirectory));
 			getTaskService().set(impl.flatMap(SpotlessTask::getTaskService));
 			getProjectDir().set(impl.flatMap(SpotlessTask::getProjectDir));
 		}

@@ -63,6 +63,8 @@ public abstract class SpotlessTaskImpl extends SpotlessTask {
 		SpotlessTaskService.usesServiceTolerateTestFailure(this, service);
 		getTaskService().set(service);
 		getProjectDir().set(getProject().getProjectDir());
+		getCleanDirectory().set(getProject().getLayout().getBuildDirectory().dir("spotless-clean/" + getName()));
+		getLintsDirectory().set(getProject().getLayout().getBuildDirectory().dir("spotless-lints/" + getName()));
 	}
 
 	// this field is stupid, but we need it, see https://github.com/diffplug/spotless/issues/1260
@@ -89,6 +91,9 @@ public abstract class SpotlessTaskImpl extends SpotlessTask {
 		if (target == null) {
 			throw new GradleException("You must specify 'Iterable<File> target'");
 		}
+
+		File cleanDirectory = getCleanDirectory().get().getAsFile();
+		File lintsDirectory = getCleanDirectory().get().getAsFile();
 
 		if (!inputs.isIncremental()) {
 			getLogger().info("Not incremental: removing prior outputs");

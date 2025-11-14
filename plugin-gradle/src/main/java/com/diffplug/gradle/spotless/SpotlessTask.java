@@ -152,21 +152,11 @@ public abstract class SpotlessTask extends DefaultTask {
 		}
 	}
 
-	protected File cleanDirectory = new File(getProject().getLayout().getBuildDirectory().getAsFile().get(),
-			"spotless-clean/" + getName());
+	@OutputDirectory
+	public abstract DirectoryProperty getCleanDirectory();
 
 	@OutputDirectory
-	public File getCleanDirectory() {
-		return cleanDirectory;
-	}
-
-	protected File lintsDirectory = new File(getProject().getLayout().getBuildDirectory().getAsFile().get(),
-			"spotless-lints/" + getName());
-
-	@OutputDirectory
-	public File getLintsDirectory() {
-		return lintsDirectory;
-	}
+	public abstract DirectoryProperty getLintsDirectory();
 
 	private final ConfigurationCacheHackList stepsInternalRoundtrip = ConfigurationCacheHackList.forRoundtrip();
 	private final ConfigurationCacheHackList stepsInternalEquality = ConfigurationCacheHackList.forEquality();

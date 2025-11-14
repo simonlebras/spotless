@@ -73,7 +73,7 @@ public abstract class SpotlessCheck extends SpotlessTaskService.ClientTask {
 						.runToFix(getRunToFixMessage().get())
 						.formatterFolder(
 								getProjectDir().get().getAsFile().toPath(),
-								getSpotlessCleanDirectory().get().toPath(),
+								getSpotlessCleanDirectory().getAsFile().get().toPath(),
 								getEncoding().get())
 						.problemFiles(unformattedFiles)
 						.getMessage());

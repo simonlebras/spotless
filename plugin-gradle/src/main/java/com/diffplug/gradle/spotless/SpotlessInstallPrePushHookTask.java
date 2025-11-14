@@ -15,9 +15,8 @@
  */
 package com.diffplug.gradle.spotless;
 
-import java.io.File;
-
 import org.gradle.api.DefaultTask;
+import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.TaskAction;
@@ -37,7 +36,7 @@ import com.diffplug.spotless.GitPrePushHookInstallerGradle;
 public abstract class SpotlessInstallPrePushHookTask extends DefaultTask {
 
 	@Internal
-	abstract Property<File> getRootDir();
+	abstract DirectoryProperty getRootDir();
 
 	/**
 	 * Determines whether this task is being executed from the root project.
